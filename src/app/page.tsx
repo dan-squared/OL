@@ -1,49 +1,25 @@
-"use client";
-
-import dynamic from "next/dynamic";
-import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(useGSAP);
-
-// three.js has no SSR — split it into its own chunk, loaded only in browser.
-const OrbeCanvas = dynamic(() => import("@/components/OrbeCanvas"), {
-  ssr: false,
-});
+import Image from "next/image";
 
 export default function Home() {
-  const container = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)")
-        .matches;
-      if (reduce) return;
-      gsap.from(".orbe-fade", {
-        y: 24,
-        opacity: 0,
-        duration: 1.1,
-        ease: "power3.out",
-        stagger: 0.15,
-      });
-    },
-    { scope: container }
-  );
-
   return (
-    <div
-      ref={container}
-      className="flex min-h-dvh flex-col bg-white text-black antialiased"
-    >
-      <main className="grid flex-1 place-items-center px-6">
-        <div className="orbe-fade w-[min(400px,85vw)]">
-          <OrbeCanvas />
-        </div>
+    <div className="flex min-h-dvh flex-col bg-white text-black antialiased">
+      <main className="grid flex-1 place-items-center px-6 py-10">
+        <Image
+          src="/orbe-mark.png"
+          alt="Orbe Labs"
+          width={300}
+          height={300}
+          priority
+          sizes="(max-width: 640px) 60vw, 300px"
+          className="orbe-enter h-auto w-[min(300px,60vw)]"
+        />
       </main>
 
-      <footer className="px-6 pb-[8vh]">
-        <p className="orbe-fade mx-auto max-w-5xl text-center font-mono text-[15px] leading-[1.4] uppercase">
+      <footer className="px-6 pb-[max(2rem,8vh)]">
+        <p
+          className="orbe-enter mx-auto max-w-5xl text-center font-mono uppercase"
+          style={{ animationDelay: "150ms" }}
+        >
           Orbe Labs is an independent design and development studio for ideas
           with somewhere to go. We give them shape, character, and a life
           beyond the screen. Our new home is taking shape. We&rsquo;ll be here
