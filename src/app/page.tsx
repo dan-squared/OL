@@ -1,10 +1,13 @@
 import Image from "next/image";
+import CursorTrail from "@/components/CursorTrail";
 
 export default function Home() {
   return (
     <div className="flex min-h-dvh flex-col bg-white text-black antialiased">
+      <CursorTrail />
       <main className="grid flex-1 place-items-center px-6 py-10">
-        <Image
+        <div data-cursor-off className="grid place-items-center p-8">
+          <Image
           src="/orbe-mark.png"
           alt="Orbe Labs"
           width={300}
@@ -12,7 +15,8 @@ export default function Home() {
           priority
           sizes="(max-width: 640px) 60vw, 300px"
           className="orbe-enter h-auto w-[min(300px,60vw)]"
-        />
+          />
+        </div>
       </main>
 
       <footer className="px-6 pb-[max(2rem,8vh)]">
